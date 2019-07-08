@@ -7,6 +7,7 @@ class Pair:
     def __init__(self, key, value):
         self.key = key
         self.value = value
+        self.next = None
 
 
 # '''
@@ -32,7 +33,7 @@ def hash(string):
     for i in range(len(string)):
         hashed = ((hashed << 5) + hashed) + ord(string[i])
     
-    return hashed
+    return hashed 
 
 # '''
 # Fill this in.
@@ -40,7 +41,40 @@ def hash(string):
 # If you are overwriting a value with a different key, print a warning.
 # '''
 def hash_table_insert(hash_table, key, value):
-    pass
+    hash_table.count += 1
+    hashed = hash(key)
+    index = hashed % hash_table.capacity
+    # print(hashed)
+    # print(index)
+    new_Pair = Pair(key, value)
+    # print(new_Pair.key, new_Pair.value)
+    node = hash_table.table[index]
+
+    if node:
+        last_node = None
+        while node:
+            if node.key == key:
+                node.value = value
+                print('You replaced the value!')
+                return
+            last_node = node
+        last_node.next = new_Pair
+    else:
+        hash_table.table[index] = new_Pair
+    # print(index)
+    # print(index % hash_table.capacity)
+    # node = hash_table.table[index]
+    # if node == None:
+    #     hash_table.table[index] = Pair(key, value)
+    #     print(hash_table.table[index])
+    #     return
+    # prev = node
+    # while node is not None:
+    #     prev = node
+    #     node = node.next
+    # prev.next = Pair(key, value)
+    
+
 
 
 # '''
@@ -63,15 +97,17 @@ def hash_table_retrieve(hash_table, key):
 
 def Testing():
     ht = BasicHashTable(16)
+    print(ht.table)
 
     hash_table_insert(ht, "line", "Here today...\n")
+    print(ht.table[13].value)
 
-    hash_table_remove(ht, "line")
+    # hash_table_remove(ht, "line")
 
-    if hash_table_retrieve(ht, "line") is None:
-        print("...gone tomorrow (success!)")
-    else:
-        print("ERROR:  STILL HERE")
+    # if hash_table_retrieve(ht, "line") is None:
+    #     print("...gone tomorrow (success!)")
+    # else:
+    #     print("ERROR:  STILL HERE")
 
 
 Testing()
