@@ -27,13 +27,13 @@ class BasicHashTable:
 # Research and implement the djb2 hash function
 #def hash(string, max):
 # '''
-def hash(string):
+def hash(string, max):
 
     hashed = 5381
     for i in range(len(string)):
         hashed = ((hashed << 5) + hashed) + ord(string[i])
     
-    return hashed 
+    return hashed % max
 
 # '''
 # Fill this in.
@@ -42,8 +42,8 @@ def hash(string):
 # '''
 def hash_table_insert(hash_table, key, value):
     hash_table.count += 1
-    hashed = hash(key)
-    index = hashed % hash_table.capacity
+    # index = hashed % hash_table.capacity
+    index = hash(key, hash_table.capacity)
     # print(hashed)
     # print(index)
     new_Pair = Pair(key, value)
