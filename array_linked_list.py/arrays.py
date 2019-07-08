@@ -10,9 +10,18 @@ class array:
 
 
 # Double the size of the given array
-def resize_array():
+def resize_array(array):
     # Your code here
-    pass
+    new_capacity = array.capacity * 2
+    new_elements = [None] * new_capacity
+
+    for i in range(array.count):
+        new_elements[i] = array.elements[i]
+    
+    array.capacity = new_capacity
+    array.elements = new_elements
+
+    
 
 
 # Return an element of a given array at a given index
