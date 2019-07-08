@@ -18,7 +18,7 @@ class BasicHashTable:
     def __init__(self, capacity):
         self.capacity = capacity
         self.count = 0
-        self.table = [None] * capacity
+        self.storage = [None] * capacity
         
 
 
@@ -48,7 +48,7 @@ def hash_table_insert(hash_table, key, value):
     # print(index)
     new_Pair = Pair(key, value)
     # print(new_Pair.key, new_Pair.value)
-    node = hash_table.table[index]
+    node = hash_table.storage[index]
 
     if node:
         last_node = None
@@ -60,7 +60,7 @@ def hash_table_insert(hash_table, key, value):
             last_node = node
         last_node.next = new_Pair
     else:
-        hash_table.table[index] = new_Pair
+        hash_table.storage[index] = new_Pair
     # print(index)
     # print(index % hash_table.capacity)
     # node = hash_table.table[index]
@@ -86,7 +86,7 @@ def hash_table_remove(hash_table, key):
     hash_table.count -= 1
     index = hash(key, hash_table.capacity)
 
-    node = hash_table.table[index]
+    node = hash_table.storage[index]
     if node:
         last_node = None
         while node:
@@ -94,7 +94,7 @@ def hash_table_remove(hash_table, key):
                 if last_node:
                     last_node.next = node.next
                 else:
-                    hash_table.table[index] = node.next
+                    hash_table.storage[index] = node.next
             last_node = node
             node = node.next
     
@@ -106,25 +106,34 @@ def hash_table_remove(hash_table, key):
 # Should return None if the key is not found.
 # '''
 def hash_table_retrieve(hash_table, key):
-    pass
+    index = hash(key, hash_table.capacity)
+
+    node = hash_table.storage[index]
+    if node:
+        last_node = None
+        while node:
+            if node.key == key:
+                return node.value
+            node = node.next
+    return None
 
 
 def Testing():
     ht = BasicHashTable(16)
-    print(ht.table)
+    print(ht.storage)
 
     hash_table_insert(ht, "line", "Here today...\n")
-    print(ht.table[13].value)
+    print(ht.storage[13].value)
 
     hash_table_remove(ht, "line")
-    print(ht.table[13])
+    print(ht.storage[13])
 
 
 
-    # if hash_table_retrieve(ht, "line") is None:
-    #     print("...gone tomorrow (success!)")
-    # else:
-    #     print("ERROR:  STILL HERE")
+    if hash_table_retrieve(ht, "line") is None:
+        print("...gone tomorrow (success!)")
+    else:
+        print("ERROR:  STILL HERE")
 
 
 Testing()
