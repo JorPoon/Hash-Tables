@@ -83,7 +83,21 @@ def hash_table_insert(hash_table, key, value):
 # If you try to remove a value that isn't there, print a warning.
 # '''
 def hash_table_remove(hash_table, key):
-    pass
+    hash_table.count -= 1
+    index = hash(key, hash_table.capacity)
+
+    node = hash_table.table[index]
+    if node:
+        last_node = None
+        while node:
+            if node.key == key:
+                if last_node:
+                    last_node.next = node.next
+                else:
+                    hash_table.table[index] = node.next
+            last_node = node
+            node = node.next
+    
 
 
 # '''
@@ -102,7 +116,10 @@ def Testing():
     hash_table_insert(ht, "line", "Here today...\n")
     print(ht.table[13].value)
 
-    # hash_table_remove(ht, "line")
+    hash_table_remove(ht, "line")
+    print(ht.table[13])
+
+
 
     # if hash_table_retrieve(ht, "line") is None:
     #     print("...gone tomorrow (success!)")
