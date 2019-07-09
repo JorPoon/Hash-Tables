@@ -97,6 +97,8 @@ def hash_table_remove(hash_table, key):
                     hash_table.storage[index] = node.next
             last_node = node
             node = node.next
+    else:
+        print("There's nothing there!")
     
 
 
