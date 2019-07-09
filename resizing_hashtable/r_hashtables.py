@@ -27,7 +27,12 @@ class HashTable:
 # Research and implement the djb2 hash function
 # '''
 def hash(string, max):
-    pass
+    hashed = 5381
+
+    for i in range(len(string)):
+        hashed = ((hashed << 5) + hashed) + ord(string[i])
+    
+    return hashed % max
 
 
 # '''
