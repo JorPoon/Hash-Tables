@@ -61,6 +61,7 @@ def hash_table_insert(hash_table, key, value):
                 print('You replaced the value!')
                 return
             last_node = node
+            node = node.next
         last_node.next = new_Pair
     else:
         hash_table.storage[index] = new_Pair
@@ -111,16 +112,25 @@ def hash_table_retrieve(hash_table, key):
 # Fill this in
 # '''
 def hash_table_resize(hash_table):
-    new_capacity = hash_table.capacity * 2
-    new_storage = [None] * new_capacity
+    # new_capacity = hash_table.capacity * 2
+    # new_storage = [None] * new_capacity
+    new_table = HashTable(hash_table.capacity * 2)
 
-    for i in range(hash_table.count):
+    for i in range(hash_table.capacity):
         # new_storage[i] = hash(hash_table.storage[i], new_capacity)
-        print(hash_table.storage[i])
-        new_storage[i] = hash_table.storage[i]
+        # print(hash_table.storage[i], "hash resize func")
+        if hash_table.storage[i] is not None:
+            current = hash_table.storage[i]
+            while current is not None:
+                hash_table_insert(new_table, current.key, current.value)
+                current = current.next
+
+
+        #     return
+        # for key in hash_table.storage[i]:
+        #     print(key, "key")
+    hash_table = new_table
     
-    hash_table.capacity = new_capacity
-    hash_table.storage = new_storage
 
     return hash_table
 
@@ -133,17 +143,21 @@ def Testing():
     # hash_table_insert(ht, "line_2", "Filled beyond capacity")
     # hash_table_insert(ht, "line_3", "Linked list saves the day!")
     hash_table_insert(ht, "key-0", "val-0")
-    hash_table_insert(ht, "key-1", "val-1")
-    # hash_table_insert(ht, "key-2", "val-2")
-    # hash_table_insert(ht, "key-3", "val-3")
-    # hash_table_insert(ht, "key-4", "val-4")
-    # hash_table_insert(ht, "key-5", "val-5")
-    # hash_table_insert(ht, "key-6", "val-6")
-    # hash_table_insert(ht, "key-7", "val-7")
-    # hash_table_insert(ht, "key-8", "val-8")
-    # hash_table_insert(ht, "key-9", "val-9")
+    print(hash_table_retrieve(ht, "key-0"), "testing func1")
+    # print(ht.storage)
 
-    print(hash_table_retrieve(ht, "key-0"))
+    hash_table_insert(ht, "key-1", "val-1")
+    hash_table_insert(ht, "key-2", "val-2")
+    hash_table_insert(ht, "key-3", "val-3")
+    hash_table_insert(ht, "key-4", "val-4")
+    hash_table_insert(ht, "key-5", "val-5")
+    hash_table_insert(ht, "key-6", "val-6")
+    hash_table_insert(ht, "key-7", "val-7")
+    hash_table_insert(ht, "key-8", "val-8")
+    hash_table_insert(ht, "key-9", "val-9")
+
+    print(hash_table_retrieve(ht, "key-0"), "testing func2")
+    # print(ht.storage)
     
 
     # print(hash_table_retrieve(ht, "line_1"))
