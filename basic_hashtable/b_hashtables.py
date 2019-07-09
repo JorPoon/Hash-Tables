@@ -58,6 +58,7 @@ def hash_table_insert(hash_table, key, value):
                 print('You replaced the value!')
                 return
             last_node = node
+            node = node.next
         last_node.next = new_Pair
     else:
         hash_table.storage[index] = new_Pair
